@@ -15,7 +15,6 @@ This PowerShell script is designed for use in enterprise environments to silentl
 Run this script through your RMM (like NinjaOne) using a SYSTEM-level script deployment. No interaction required. It’s intended to be run silently in the background across multiple endpoints.
 
 ## Notes
-- Tested successfully on multiple Mougeot PCs
 - Ideal for mass BIOS/driver updates without user disruption
 - If DCU is already installed, the script just runs it
 - If DCU is missing, it’s downloaded from Dell and installed automatically
