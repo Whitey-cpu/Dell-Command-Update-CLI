@@ -1,17 +1,31 @@
-# Dell-Command-Update-CLI
-# Dell BIOS & Driver Update Script
+# Dell Command Update – Enterprise Deployment Script
 
-PowerShell script that uses Dell Command | Update (DCU) to silently apply BIOS and driver updates. If DCU isn't installed, it'll grab it from Dell and install it before running.
+This PowerShell script is designed for use in enterprise environments to silently run Dell Command | Update (DCU) on endpoints. It’s meant to be pushed through RMM tools like NinjaOne, running as SYSTEM, with no user interaction.
 
 ## What it does
-- Checks for Dell Command | Update (dcu-cli.exe)
-- Automatically installs it if missing
-- Runs `/applyUpdates /silent /reboot=disable`
-- BIOS updates will apply after the next reboot
-- No logs, just output to the console
+- Checks if Dell Command | Update (dcu-cli.exe) is installed
+- If it’s missing, the script auto-downloads and installs it silently
+- Applies all available updates using:  
+  `/applyUpdates /silent /reboot=disable`
+- BIOS updates are staged and will apply on next reboot
+- Script does **not** trigger a reboot
+- No logging or reporting — just clean console output for NinjaOne to capture
 
 ## Usage
-Run this as system:
+Run this script through your RMM (like NinjaOne) using a SYSTEM-level script deployment. No interaction required. It’s intended to be run silently in the background across multiple endpoints.
 
-```powershell
-powershell -ExecutionPolicy Bypass -File .\Run-DCU.ps1
+## Notes
+- Tested successfully on multiple Mougeot PCs
+- Ideal for mass BIOS/driver updates without user disruption
+- If DCU is already installed, the script just runs it
+- If DCU is missing, it’s downloaded from Dell and installed automatically
+
+## Example NinjaOne Settings
+- OS: Windows
+- Script Type: PowerShell
+- Run As: SYSTEM
+- Execution Policy: Bypass
+
+---
+
+This script is built to "just work" in real-world deployments — no fluff, no reboot traps, no extra logging overhead.
